@@ -47,29 +47,33 @@ with open(csvpath, newline='') as csvfile:
         pl.append(row[1])
         monthcount = monthcount + 1
 
+    # Loop through new list of profit numbers
     for x in pl:
-        #print(int(x))
 
+        # Sum of the net profits and losses.
         netpl = netpl + int(x)
+
+        # Test for conditions of greatest monthly profit and
+        # greatest monthly loss.
         if int(x) > maxprofit:
             maxprofit = int(x)
         elif int(x) < maxloss:
             maxloss = int(x)
 
-
-
-        #if profit > maxprofit:
-         #   maxprofit = row[1]
-        #   maxprofit_dt = row[0]
-
-
+    # Calculate average monthly profit or loss.
     avepl = round(netpl / monthcount,2)
 
+    # Find dates of max profit and max loss.
+    maxprofit_index = pl.index(str(maxprofit))
+    maxprofit_date = date[maxprofit_index]
+
+    maxloss_index = pl.index(str(maxloss))
+    maxloss_date = date[maxloss_index]
 
     print()
     print("-------------------------------------")
     print("Total Months: " + str(monthcount))
     print("Total $" + str(netpl))
     print("Average Change: $ " + str(avepl))
-    print("Greatest Increase in Profits: " + str(maxprofit))
-    print("Greatest Dencrease in Profits: " + str(maxloss))
+    print("Greatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
+    print("Greatest Dencrease in Profits: " + maxloss_date + " " + str(maxloss))
