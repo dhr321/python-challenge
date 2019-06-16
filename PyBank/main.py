@@ -7,8 +7,12 @@ import os
 
 # Module for reading CSV files
 import csv
+import os
+import csv
 
-os.getcwd()
+monthcount = 0
+
+#os.getcwd()
 
 csvpath = os.path.join('Resources', 'budget_data.csv')
 
@@ -30,8 +34,16 @@ with open(csvpath, newline='') as csvfile:
 
     # Read the header row first (skip this step if there is now header)
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
+    # print(f"CSV Header: {csv_header}")
 
     # Read each row of data after the header
     for row in csvreader:
-        print(row)
+        # print(row)
+        monthcount = monthcount + 1
+
+    print()
+    print("-------------------------------------")
+    print("Total Months: " + str(monthcount))
+
+
+
