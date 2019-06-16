@@ -10,23 +10,25 @@ import csv
 import os
 import csv
 
-monthcount = 0
 
-#os.getcwd()
+
+# Initialize variables.
+monthcount = 0
+netpl = 0
+avepl = 0
+maxprofit = 0
+maxloss = 0
+
+# Lists to store data.
+date = []
+pl = []
+
+# os.getcwd()
 
 csvpath = os.path.join('Resources', 'budget_data.csv')
 
-# # Method 1: Plain Reading of CSV files
-# with open(csvpath, 'r') as file_handler:
-#     lines = file_handler.read()
-#     print(lines)
-#     print(type(lines))
-
-
-# Method 2: Improved Reading using CSV module
-
+# Open .csv data file.
 with open(csvpath, newline='') as csvfile:
-
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
 
@@ -36,14 +38,38 @@ with open(csvpath, newline='') as csvfile:
     csv_header = next(csvreader)
     # print(f"CSV Header: {csv_header}")
 
-    # Read each row of data after the header
+    # Read each row of data after the header.
+    # Create two lists: one for dates and one for profit/loss.
+    # Count the rows in the .csv file to get count of months.
     for row in csvreader:
-        # print(row)
+        #print(row[1])
+        date.append(row[0])
+        pl.append(row[1])
         monthcount = monthcount + 1
+
+    for x in pl:
+        #print(int(x))
+
+        netpl = netpl + int(x)
+        if int(x) > maxprofit:
+            maxprofit = int(x)
+        elif int(x) < maxloss:
+            maxloss = int(x)
+
+
+
+        #if profit > maxprofit:
+         #   maxprofit = row[1]
+        #   maxprofit_dt = row[0]
+
+
+    avepl = round(netpl / monthcount,2)
+
 
     print()
     print("-------------------------------------")
     print("Total Months: " + str(monthcount))
-
-
-
+    print("Total $" + str(netpl))
+    print("Average Change: $ " + str(avepl))
+    print("Greatest Increase in Profits: " + str(maxprofit))
+    print("Greatest Dencrease in Profits: " + str(maxloss))
