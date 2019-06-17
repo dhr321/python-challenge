@@ -1,21 +1,15 @@
 # Script for PyBank assignment.
 # Dave Rodriguez. david.h.rodriguez@gmail.com
 
-# First we'll import the os module
-# This will allow us to create file paths across operating systems
-import os
-
-# Module for reading CSV files
-import csv
+# Import dependencies
 import os
 import csv
-
 
 
 # Initialize variables.
 monthcount = 0
-netpl = 0
-avepl = 0
+netpl = 0 # net profit or loss
+avepl = 0 # average profit or loss
 maxprofit = 0
 maxloss = 0
 
@@ -32,8 +26,6 @@ with open(csvpath, newline='') as csvfile:
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
 
-    print(csvreader)
-
     # Read the header row first (skip this step if there is now header)
     csv_header = next(csvreader)
     # print(f"CSV Header: {csv_header}")
@@ -47,10 +39,10 @@ with open(csvpath, newline='') as csvfile:
         pl.append(row[1])
         monthcount = monthcount + 1
 
-    # Loop through new list of profit numbers
+    # Loop through new list of profit & loss numbers
     for x in pl:
 
-        # Sum of the net profits and losses.
+        # Sum up the net profits and losses.
         netpl = netpl + int(x)
 
         # Test for conditions of greatest monthly profit and
@@ -74,17 +66,17 @@ with open(csvpath, newline='') as csvfile:
     print("-------------------------------------")
     print("Total Months: " + str(monthcount))
     print("Total $" + str(netpl))
-    print("Average Change: $ " + str(avepl))
+    print("Average Change: $" + str(avepl))
     print("Greatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
     print("Greatest Dencrease in Profits: " + maxloss_date + " " + str(maxloss))
 
-# Send output to a new text file.
+# Send output to a new text file and then close it.
 f = open("budget_summary.txt", "w")
 # f.write("\n ")
 f.write("-------------------------------------")
 f.write("\nTotal Months: " + str(monthcount))
 f.write("\nTotal $" + str(netpl))
-f.write("\nAverage Change: $ " + str(avepl))
+f.write("\nAverage Change: $" + str(avepl))
 f.write("\nGreatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
 f.write("\nGreatest Dencrease in Profits: " + maxloss_date + " " + str(maxloss))
 f.close()
