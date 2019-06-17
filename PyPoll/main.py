@@ -41,14 +41,21 @@ with open(csvpath, newline='') as csvfile:
     for x in all_candidates:
         if x not in unique_candidates:
             unique_candidates.append(x)
+    # print(unique_candidates)
 
-    print(unique_candidates)
-
-        #pl.append(row[1])
-        #monthcount = monthcount + 1
-
-    print("--------------------------")
+    print("\n--------------------------")
     print("Election Results")
     print("--------------------------")
     print("Total Votes: " + str(votecount))
     print("--------------------------")
+
+    for name in unique_candidates:
+        #print(name)
+        for votename in all_candidates:
+            if votename == name:
+                votes = votes + 1
+        print(name + ": " + str(round(votes/votecount*100,3)) + "% (" + str(votes) + ")")
+        votes = 0
+
+
+
