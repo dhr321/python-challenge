@@ -4,15 +4,13 @@
 # Import dependencies
 import os
 import csv
-import numpy as np
-
 
 # Initialize variables.
 votecount = 0
 votes = 0
+leader = 0
 
 # Lists to store data.
-voters = []
 all_candidates = []
 unique_candidates = []
 
@@ -55,7 +53,14 @@ with open(csvpath, newline='') as csvfile:
             if votename == name:
                 votes = votes + 1
         print(name + ": " + str(round(votes/votecount*100,3)) + "% (" + str(votes) + ")")
+
+        if votes > leader:
+            leader = votes
+            winner = name
         votes = 0
 
+    print("--------------------------")
+    print("Winner: " + winner)
+    print("--------------------------")
 
 
