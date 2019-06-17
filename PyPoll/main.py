@@ -14,9 +14,6 @@ leader = 0
 all_candidates = []
 unique_candidates = []
 
-
-# os.getcwd()
-
 csvpath = os.path.join('Resources', 'election_data.csv')
 
 # Open .csv data file.
@@ -29,7 +26,8 @@ with open(csvpath, newline='') as csvfile:
     # print(f"CSV Header: {csv_header}")
 
     # Read each row of data after the header.
-    # Populate a list of all the selected candidate names
+    # Populate a list of all the selected candidate's names
+    # Count the total number of votes.
     for row in csvreader:
         all_candidates.append(row[2])
         votecount = votecount + 1
@@ -41,6 +39,7 @@ with open(csvpath, newline='') as csvfile:
             unique_candidates.append(x)
     # print(unique_candidates)
 
+    # Start printing results to terminal.
     print("\n--------------------------")
     print("Election Results")
     print("--------------------------")
@@ -57,13 +56,20 @@ with open(csvpath, newline='') as csvfile:
     f.write("\nTotal Votes: " + str(votecount))
     f.write("\n--------------------------")
 
+    # Loop through list of four candidates.
     for name in unique_candidates:
         #print(name)
+
+        # Loop through list of all selected voter names.
         for votename in all_candidates:
             if votename == name:
                 votes = votes + 1
+
+        # Output the candidate's name and how many votes collected.
         print(name + ": " + str(round(votes/votecount*100,3)) + "% (" + str(votes) + ")")
         f.write("\n" + name + ": " + str(round(votes / votecount * 100, 3)) + "% (" + str(votes) + ")")
+
+        # Identify the candidate with the most votes.
         if votes > leader:
             leader = votes
             winner = name
