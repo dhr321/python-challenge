@@ -60,7 +60,7 @@ with open(csvpath, newline='') as csvfile:
         elif int(x) < maxloss:
             maxloss = int(x)
 
-    # Calculate average monthly profit or loss.
+    # Calculate average monthly change.
     avepl = round(netpl / monthcount,2)
 
     # Find dates of max profit and max loss.
@@ -77,3 +77,14 @@ with open(csvpath, newline='') as csvfile:
     print("Average Change: $ " + str(avepl))
     print("Greatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
     print("Greatest Dencrease in Profits: " + maxloss_date + " " + str(maxloss))
+
+# Send output to a new text file.
+f = open("budget_summary.txt", "w")
+# f.write("\n ")
+f.write("-------------------------------------")
+f.write("\nTotal Months: " + str(monthcount))
+f.write("\nTotal $" + str(netpl))
+f.write("\nAverage Change: $ " + str(avepl))
+f.write("\nGreatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
+f.write("\nGreatest Dencrease in Profits: " + maxloss_date + " " + str(maxloss))
+f.close()
