@@ -47,13 +47,23 @@ with open(csvpath, newline='') as csvfile:
     print("Total Votes: " + str(votecount))
     print("--------------------------")
 
+    # Send output to a new text file and then close it.
+    # Need to send output to screen and to text file as it is generated
+    # instead of dumping it all at once.
+    f = open("election_summary.txt", "w")
+    f.write("--------------------------")
+    f.write("\nElection Results")
+    f.write("\n--------------------------")
+    f.write("\nTotal Votes: " + str(votecount))
+    f.write("\n--------------------------")
+
     for name in unique_candidates:
         #print(name)
         for votename in all_candidates:
             if votename == name:
                 votes = votes + 1
         print(name + ": " + str(round(votes/votecount*100,3)) + "% (" + str(votes) + ")")
-
+        f.write("\n" + name + ": " + str(round(votes / votecount * 100, 3)) + "% (" + str(votes) + ")")
         if votes > leader:
             leader = votes
             winner = name
@@ -63,4 +73,7 @@ with open(csvpath, newline='') as csvfile:
     print("Winner: " + winner)
     print("--------------------------")
 
-
+    f.write("\n--------------------------")
+    f.write("\nWinner: " + winner)
+    f.write("\n--------------------------")
+    f.close()
