@@ -68,7 +68,7 @@ with open(csvpath, newline='') as csvfile:
     print("Total $" + str(netpl))
     print("Average Change: $" + str(avepl))
     print("Greatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
-    print("Greatest Dencrease in Profits: " + maxloss_date + " " + str(maxloss))
+    print("Greatest Decrease in Profits: " + maxloss_date + " " + str(maxloss))
 
 # Send output to a new text file and then close it.
 f = open("budget_summary.txt", "w")
@@ -78,5 +78,5 @@ f.write("\nTotal Months: " + str(monthcount))
 f.write("\nTotal $" + str(netpl))
 f.write("\nAverage Change: $" + str(avepl))
 f.write("\nGreatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
-f.write("\nGreatest Dencrease in Profits: " + maxloss_date + " " + str(maxloss))
+f.write("\nGreatest Decrease in Profits: " + maxloss_date + " " + str(maxloss))
 f.close()
