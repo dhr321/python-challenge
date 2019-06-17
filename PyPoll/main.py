@@ -1,4 +1,4 @@
-# Script for PyBank assignment.
+# Script for PyPoll assignment.
 # Dave Rodriguez. david.h.rodriguez@gmail.com
 
 # Import dependencies
