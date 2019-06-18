@@ -63,6 +63,7 @@ with open(csvpath, newline='') as csvfile:
     maxloss_date = date[maxloss_index]
 
     print()
+    print("Financial Analysis")
     print("-------------------------------------")
     print("Total Months: " + str(monthcount))
     print("Total $" + str(netpl))
@@ -73,7 +74,8 @@ with open(csvpath, newline='') as csvfile:
 # Send output to a new text file and then close it.
 f = open("budget_summary.txt", "w")
 # f.write("\n ")
-f.write("-------------------------------------")
+f.write("Financial Analysis")
+f.write("\n-------------------------------------")
 f.write("\nTotal Months: " + str(monthcount))
 f.write("\nTotal $" + str(netpl))
 f.write("\nAverage Change: $" + str(avepl))
