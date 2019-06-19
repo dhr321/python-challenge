@@ -8,14 +8,17 @@ import csv
 
 # Initialize variables.
 monthcount = 0
+thisMonthProfit = 0
+lastMonthProfit = 0
 netpl = 0 # net profit or loss
-avepl = 0 # average profit or loss
-maxprofit = 0
-maxloss = 0
+sumChange = 0 # sum of all month-to-month changes
+maxPosChange = 0
+maxNegChange = 0
 
 # Lists to store data.
 date = []
 pl = []
+change = []
 
 # os.getcwd()
 
@@ -41,35 +44,52 @@ with open(csvpath, newline='') as csvfile:
 
     # Loop through new list of profit & loss numbers
     for x in pl:
-
+        
         # Sum up the net profits and losses.
         netpl = netpl + int(x)
 
-        # Test for conditions of greatest monthly profit and
-        # greatest monthly loss.
-        if int(x) > maxprofit:
-            maxprofit = int(x)
-        elif int(x) < maxloss:
-            maxloss = int(x)
+        # Populate a list of the calculated month-to-month changes.
+        thisMonthProfit = int(x)
+        change.append(int(x) - lastMonthProfit)
 
+        # After calculation complete, move value of current month to last month.
+        lastMonthProfit = thisMonthProfit
+    # print(change)
+
+    # Loop through the list of calculated changes.
     # Calculate average monthly change.
-    avepl = round(netpl / monthcount,2)
+    # Identify maximum positive and negative changes.
+    for x in change:
+        sumChange = sumChange + int(x)
+        if x > maxPosChange:
+            maxPosChange = x
+        elif x < maxNegChange:
+            maxNegChange = x
 
-    # Find dates of max profit and max loss.
-    maxprofit_index = pl.index(str(maxprofit))
-    maxprofit_date = date[maxprofit_index]
+    # Calculate the average monthly change.
+    # Subtract the first calculated change from the sum because it's not really a "change".
+    # Also, subtract 1 from the monthcount because the number of monthly changes
+    # is one less than the number of months.
+    aveChange = round((sumChange - change[0]) / (monthcount-1),2)
 
-    maxloss_index = pl.index(str(maxloss))
-    maxloss_date = date[maxloss_index]
+
+    # Find dates of max positive and negative changes.
+    # The index of the values in the list of changes should
+    # correspond to the index in the list of dates.
+    maxPosChange_index = change.index(maxPosChange)
+    maxPosChange_date = date[maxPosChange_index]
+
+    maxNegChange_index = change.index(maxNegChange)
+    maxNegChange_date = date[maxNegChange_index]
 
     print()
     print("Financial Analysis")
     print("-------------------------------------")
     print("Total Months: " + str(monthcount))
     print("Total $" + str(netpl))
-    print("Average Change: $" + str(avepl))
-    print("Greatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
-    print("Greatest Decrease in Profits: " + maxloss_date + " " + str(maxloss))
+    print("Average Change: $" + str(aveChange))
+    print("Greatest Increase in Profits: " + maxPosChange_date + " ($" + str(maxPosChange) + ")")
+    print("Greatest Decrease in Profits: " + maxNegChange_date + " ($" + str(maxNegChange) + ")")
 
 # Send output to a new text file and then close it.
 f = open("budget_summary.txt", "w")
@@ -78,7 +98,7 @@ f.write("Financial Analysis")
 f.write("\n-------------------------------------")
 f.write("\nTotal Months: " + str(monthcount))
 f.write("\nTotal $" + str(netpl))
-f.write("\nAverage Change: $" + str(avepl))
-f.write("\nGreatest Increase in Profits: " + maxprofit_date + " " + str(maxprofit))
-f.write("\nGreatest Decrease in Profits: " + maxloss_date + " " + str(maxloss))
+f.write("\nAverage Change: $" + str(aveChange))
+f.write("\nGreatest Increase in Profits: " + maxPosChange_date + " ($" + str(maxPosChange) + ")")
+f.write("\nGreatest Decrease in Profits: " + maxNegChange_date + " ($" + str(maxNegChange) + ")")
 f.close()
